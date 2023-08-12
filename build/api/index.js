@@ -7,4 +7,5 @@ const koa_router_1 = __importDefault(require("koa-router"));
 const health_1 = __importDefault(require("../class/health"));
 const healthRoute = new koa_router_1.default();
 healthRoute.get("/", health_1.default.Health);
+healthRoute.post("/ping", health_1.default.Arango);
 exports.default = healthRoute;
