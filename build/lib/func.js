@@ -13,11 +13,11 @@ const corsOption = () => {
 };
 exports.corsOption = corsOption;
 const retError = (err, ctx) => {
-    console.log(err, ctx);
+    logger({ error: err, context: ctx });
 };
 exports.retError = retError;
 const listeningTo = () => {
-    console.log("App listening to port");
+    logger(`App listening to port`);
 };
 exports.listeningTo = listeningTo;
 const logger = (a) => {

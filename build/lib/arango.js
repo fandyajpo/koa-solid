@@ -16,8 +16,9 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPing = void 0;
+exports.createPing = exports.aql = exports.getConnection = exports.getCollection = void 0;
 const { Database, aql } = require("arangojs");
+exports.aql = aql;
 const getConnection = () => {
     return new Database({
         url: process.env.ARANGO_ENPOINT,
@@ -28,6 +29,7 @@ const getConnection = () => {
         },
     });
 };
+exports.getConnection = getConnection;
 const getCollection = (cName, db) => __awaiter(void 0, void 0, void 0, function* () {
     const collections = yield db.collections();
     if (collections.find((c) => c._name === cName)) {
@@ -37,6 +39,7 @@ const getCollection = (cName, db) => __awaiter(void 0, void 0, void 0, function*
         return db.createCollection(cName);
     }
 });
+exports.getCollection = getCollection;
 const createPing = (message) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, e_1, _b, _c;
     const db = getConnection();

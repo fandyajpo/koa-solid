@@ -10,9 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const arango_1 = require("../lib/arango");
+const redis_1 = require("../lib/redis");
 class Healt {
     Health(ctx) {
-        return (ctx.body = "KOA");
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const test = yield (0, redis_1.getTest)();
+                return (ctx.body = test);
+            }
+            catch (error) {
+                return (ctx.body = error);
+            }
+        });
     }
     Arango(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
