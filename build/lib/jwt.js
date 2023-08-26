@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.verifyRefresh = exports.verifyAccess = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const createAccessToken = (payload) => {
     try {
         delete payload.password;
-        const accessToken = jsonwebtoken_1.default.sign(payload, process.env.ACCESS_TOKEN, {
-            expiresIn: "10m",
+        const accessToken = jsonwebtoken_1.default.sign(payload, String(process.env.ACCESS_TOKEN), {
+            expiresIn: "10s",
         });
         return accessToken;
     }
@@ -28,7 +29,7 @@ const createAccessToken = (payload) => {
 const createRefreshToken = (payload) => {
     try {
         delete payload.password;
-        const refreshToken = jsonwebtoken_1.default.sign(payload, process.env.REFRESH_TOKEN, {
+        const refreshToken = jsonwebtoken_1.default.sign(payload, String(process.env.REFRESH_TOKEN), {
             expiresIn: "7d",
         });
         return refreshToken;
@@ -52,4 +53,24 @@ const createToken = (p) => __awaiter(void 0, void 0, void 0, function* () {
         throw error;
     }
 });
+const verifyAccess = (token) => {
+    try {
+        var res = jsonwebtoken_1.default.verify(String(token), String(process.env.ACCESS_TOKEN));
+        return res;
+    }
+    catch (error) {
+        throw error;
+    }
+};
+exports.verifyAccess = verifyAccess;
+const verifyRefresh = (token) => {
+    try {
+        var res = jsonwebtoken_1.default.verify(String(token), String(process.env.REFRESH_TOKEN));
+        return res;
+    }
+    catch (error) {
+        throw error;
+    }
+};
+exports.verifyRefresh = verifyRefresh;
 exports.default = createToken;

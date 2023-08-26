@@ -14,10 +14,15 @@ class Healt {
     Health(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return (ctx.body = "KOA");
+                ctx.response.status = 200;
+                return (ctx.response.body = {
+                    status: true,
+                    message: "Hai success",
+                });
             }
             catch (error) {
-                return (ctx.body = error);
+                ctx.response.status = 400;
+                return (ctx.response.body = error);
             }
         });
     }
@@ -26,9 +31,11 @@ class Healt {
             try {
                 const { message } = ctx.request.body;
                 const ping = yield (0, arango_1.createPing)(message);
+                ctx.response.status = 200;
                 return (ctx.response.body = ping);
             }
             catch (error) {
+                ctx.response.status = 400;
                 return (ctx.response.body = error);
             }
         });

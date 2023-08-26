@@ -31,15 +31,58 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = require("../types/user");
 const yup_1 = require("yup");
 const auth_1 = __importStar(require("../service/auth"));
-const jwt_1 = __importDefault(require("../lib/jwt"));
+const jwt_1 = __importStar(require("../lib/jwt"));
+const jsonwebtoken_1 = require("jsonwebtoken");
 class Auth {
+    Refresh(ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const authorization = ctx.request.header["authorization"];
+                if (!authorization) {
+                    ctx.response.status = 400;
+                    return (ctx.response.body = { status: false, message: "Unauthorized" });
+                }
+                const iron = authorization.replace("Bearer ", "");
+                const refresh = (0, jwt_1.verifyRefresh)(iron);
+                delete refresh.iat;
+                delete refresh.exp;
+                const { accessToken, refreshToken } = yield (0, jwt_1.default)(refresh);
+                ctx.response.status = 200;
+                return (ctx.response.body = {
+                    status: true,
+                    message: "Refresh success",
+                    token: {
+                        accessToken: accessToken,
+                        refreshToken: refreshToken,
+                    },
+                });
+            }
+            catch (error) {
+                if (error instanceof jsonwebtoken_1.JsonWebTokenError) {
+                    ctx.response.status = 400;
+                    return (ctx.response.body = error);
+                }
+                ctx.response.status = 400;
+                return (ctx.response.body = error);
+            }
+        });
+    }
+    Checker(ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                ctx.response.status = 200;
+                return (ctx.response.body = { status: "refresh" });
+            }
+            catch (error) {
+                ctx.response.status = 400;
+                return (ctx.response.body = { status: "broken" });
+            }
+        });
+    }
     Login(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

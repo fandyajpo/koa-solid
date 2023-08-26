@@ -33,5 +33,3 @@ const getTest = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getTest = getTest;
-// if we need redis, just uncomment in /lin/router.ts
-exports.default = redis;

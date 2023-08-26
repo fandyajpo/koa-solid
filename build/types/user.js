@@ -14,6 +14,9 @@ exports.SLogin = (0, yup_1.object)().shape({
     username: (0, yup_1.string)().required("Username is required"),
 });
 exports.SUser = (0, yup_1.object)().shape({
+    _key: (0, yup_1.string)(),
+    _id: (0, yup_1.string)(),
+    _rev: (0, yup_1.string)(),
     username: (0, yup_1.string)().required("Username is required"),
     email: (0, yup_1.string)().email().required("Email is required"),
     birthday: (0, yup_1.date)(),
