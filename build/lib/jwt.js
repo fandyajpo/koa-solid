@@ -16,7 +16,7 @@ exports.verifyRefresh = exports.verifyAccess = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const createAccessToken = (payload) => {
     try {
-        delete payload.password;
+        payload === null || payload === void 0 ? true : delete payload.password;
         const accessToken = jsonwebtoken_1.default.sign(payload, String(process.env.ACCESS_TOKEN), {
             expiresIn: "10s",
         });
@@ -28,7 +28,7 @@ const createAccessToken = (payload) => {
 };
 const createRefreshToken = (payload) => {
     try {
-        delete payload.password;
+        payload === null || payload === void 0 ? true : delete payload.password;
         const refreshToken = jsonwebtoken_1.default.sign(payload, String(process.env.REFRESH_TOKEN), {
             expiresIn: "7d",
         });
@@ -45,8 +45,8 @@ const createToken = (p) => __awaiter(void 0, void 0, void 0, function* () {
             createRefreshToken(p),
         ]);
         return {
-            accessToken: gen[0],
-            refreshToken: gen[1],
+            accessToken: String(gen[0]),
+            refreshToken: String(gen[1]),
         };
     }
     catch (error) {

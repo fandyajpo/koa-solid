@@ -4,8 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const koa_router_1 = __importDefault(require("koa-router"));
-const profile = new koa_router_1.default();
-profile.patch("/displayName", () => { });
-profile.patch("/email", () => { });
-profile.patch("/photoUrl", () => { });
-exports.default = profile;
+const user_1 = __importDefault(require("../class/user"));
+const RUserControll = new koa_router_1.default({ prefix: "/v1/user" });
+// GETTER
+RUserControll.get("/", (ctx) => (ctx.response.body = "root"));
+RUserControll.get("/profile/:_key", user_1.default.GetProfile);
+// SETTER
+RUserControll.patch("/username", user_1.default.SetUsername);
+RUserControll.patch("/email", () => { });
+RUserControll.patch("/photoUrl", () => { });
+exports.default = RUserControll;

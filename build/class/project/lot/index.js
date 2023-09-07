@@ -9,39 +9,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const arango_1 = require("../lib/arango");
-class CHealtControll {
-    Health(ctx) {
-        try {
-            ctx.response.status = 200;
-            ctx.response.body = {
-                status: true,
-                message: "Hai",
-            };
-            return ctx;
-        }
-        catch (error) {
-            ctx.response.status = 400;
-            ctx.response.body = error;
-            return ctx;
-        }
-    }
-    Arango(ctx) {
+class CLotControll {
+    CreateLot(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { message } = ctx.request.body;
-                const ping = yield (0, arango_1.createPing)(message);
-                ctx.response.status = 200;
-                ctx.response.body = ping;
-                return ctx;
-            }
-            catch (error) {
-                ctx.response.status = 400;
-                ctx.response.body = error;
-                return ctx;
-            }
+            return ctx;
+        });
+    }
+    DeleteLot(ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return ctx;
+        });
+    }
+    GetLot(ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return ctx;
+        });
+    }
+    SearchLot(ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return ctx;
+        });
+    }
+    UpdateLot(ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return ctx;
         });
     }
 }
-const VHealthControll = new CHealtControll();
-exports.default = VHealthControll;
+const VLotControll = new CLotControll();
+exports.default = VLotControll;

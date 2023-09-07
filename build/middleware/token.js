@@ -17,7 +17,12 @@ const hasAuth = (ctx, next) => __awaiter(void 0, void 0, void 0, function* () {
         const authorization = ctx.request.header["authorization"];
         if (!authorization) {
             ctx.response.status = 400;
-            return (ctx.response.body = { status: false, message: "Unauthorized" });
+            ctx.response.body = {
+                status: false,
+                statusCode: ctx.response.status,
+                message: "Unauthorized",
+            };
+            return ctx;
         }
         const iron = authorization.replace("Bearer ", "");
         (0, jwt_1.verifyAccess)(iron);
@@ -26,11 +31,20 @@ const hasAuth = (ctx, next) => __awaiter(void 0, void 0, void 0, function* () {
     catch (error) {
         if (error instanceof jsonwebtoken_1.JsonWebTokenError) {
             ctx.response.status = 400;
-            console.log(error.message);
-            return (ctx.response.body = { status: false, message: error.message });
+            ctx.response.body = {
+                status: false,
+                message: error.message,
+                statusCode: ctx.response.status,
+            };
+            return ctx;
         }
         ctx.response.status = 400;
-        return (ctx.response.body = { status: false, message: error });
+        ctx.response.body = {
+            status: false,
+            message: error,
+            statusCode: ctx.response.status,
+        };
+        return ctx;
     }
 });
 exports.hasAuth = hasAuth;

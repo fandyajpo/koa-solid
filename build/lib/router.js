@@ -10,7 +10,6 @@ const auth_1 = __importDefault(require("../api/auth"));
 const api_1 = __importDefault(require("../api"));
 const func_1 = require("./func");
 const koa_body_1 = require("koa-body");
-// redis.connect();
 const R = new koa_router_1.default();
 R.use(api_1.default.routes());
 R.use(auth_1.default.routes());

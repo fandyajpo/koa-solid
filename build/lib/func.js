@@ -17,7 +17,7 @@ const retError = (err, ctx) => {
 };
 exports.retError = retError;
 const listeningTo = () => {
-    logger(`App listening to port`);
+    logger(`App listening to port ${process.env.PORT}`);
 };
 exports.listeningTo = listeningTo;
 const logger = (a) => {
