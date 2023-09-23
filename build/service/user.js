@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setUsername = void 0;
+exports.tesTransaction = exports.setUsername = void 0;
 const arango_1 = require("../lib/arango");
 const error_1 = require("arangojs/error");
 const setUsername = (p) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,3 +41,19 @@ const setUsername = (p) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.setUsername = setUsername;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const tesTransaction = () => __awaiter(void 0, void 0, void 0, function* () {
+    const db = (0, arango_1.getConnection)();
+    try {
+    }
+    catch (error) {
+        if (error instanceof error_1.ArangoError) {
+            throw error.message;
+        }
+        throw error;
+    }
+    finally {
+        db.close();
+    }
+});
+exports.tesTransaction = tesTransaction;
