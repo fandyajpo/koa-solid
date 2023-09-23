@@ -67,8 +67,10 @@ class CUserControll {
     SetUsername(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log("?MASU");
                 const body = ctx.request.body;
-                const { _key, username } = yield user_1.SSetUsername.validate(body, {
+                const { _key } = ctx.params;
+                const { username } = yield user_1.SSetUsername.validate(body, {
                     stripUnknown: true,
                 });
                 const update = yield (0, user_2.setUsername)({ _key, username });

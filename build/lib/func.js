@@ -8,6 +8,7 @@ const cors_1 = __importDefault(require("@koa/cors"));
 const corsOption = () => {
     const options = {
         origin: "*",
+        allowMethods: ["GET", "PATCH", "POST", "DELETE"],
     };
     return (0, cors_1.default)(options);
 };

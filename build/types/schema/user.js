@@ -30,8 +30,6 @@ exports.SUser = (0, yup_1.object)().shape({
     permission: (0, yup_1.array)(),
 });
 exports.SSetUsername = (0, yup_1.object)().shape({
-    _key: (0, yup_1.string)().required(),
-    col: (0, yup_1.string)(),
     username: (0, yup_1.string)().required(),
     lastUpdateBy: (0, yup_1.string)(),
     lastUpdateTime: (0, yup_1.date)(),

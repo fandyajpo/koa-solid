@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPing = exports.aql = exports.getConnection = exports.getCollection = void 0;
 const arangojs_1 = require("arangojs");
 Object.defineProperty(exports, "aql", { enumerable: true, get: function () { return arangojs_1.aql; } });
+let database = arangojs_1.Database;
 const getConnection = () => {
     return new arangojs_1.Database({
         url: process.env.ARANGO_ENPOINT,
